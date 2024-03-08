@@ -1,0 +1,35 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .nav-list {
+    list-style-type: none;
+
+    li {
+      display: inline;
+      padding-right: 20px;
+    }
+  }
+}
+
+
+.resturant-card {
+  align-items: center;
+  border: 1px solid rgba(151, 149, 149, 0.562);
+  width: 12.5rem;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 1.5rem;
+
+  img {
+    width: 100%;
+    border-radius: 1.2rem;
+  }
+
+}
+
+.resturant-list {
+  display: flex;
+  flex-wrap: wrap;
+}
