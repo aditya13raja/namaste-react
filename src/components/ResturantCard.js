@@ -1,6 +1,6 @@
-import { IMG_CDN_URL } from "../constants";
+import { IMG_CDN_URL } from "../constants"
 
-const ResturantCard = ({ name, cloudinaryImageId, cuisines, avgRating  }) => { // can use 'props' instead then we need to use props.resturant....
+const ResturantCard = ({ name, cloudinaryImageId, cuisines, avgRating }) => { // can use 'props' instead then we need to use props.resturant....
   //we are using array destructering {resturant}
   return (
     <div className='resturant-card'>
