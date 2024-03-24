@@ -9,7 +9,6 @@ const ResturantMenu = () => {
   const { resId } = useParams()
 
   const [resturant, setResturant] = useState({})
-
   const [resturantMenu, setResturantMenu] = useState({})
 
   useEffect(() => {
@@ -18,20 +17,24 @@ const ResturantMenu = () => {
 
   async function getResturantInfo() {
     const data = await fetch(`https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&lat=31.00480&lng=75.94630&restaurantId=` + resId)
-     
+
     const json = await data.json();
     // console.log(json.data.cards[0].card.card.info.name)
 
-    setResturant(json?.data?.cards[0]?.card?.card?.info) 
-    
+    setResturant(json?.data?.cards[0]?.card?.card?.info)
+
     setResturantMenu(json.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.itemCards)
 
-    console.log(json.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.itemCards)
+    // console.log(json.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.itemCards)
   }
+
 
   return (resturant === 0) ? <Shimmer /> : (
     <div className="resturant-detail">
-      <div className="resturant-info"> 
+
+
+
+      <div className="resturant-info">
         <h1>Resturnat id: { resId }</h1>
         <h2>{resturant.name}</h2>
         <img src={IMG_CDN_URL + resturant.cloudinaryImageId}/>
@@ -43,7 +46,7 @@ const ResturantMenu = () => {
 
 
       <div className="menu-items">
-        <h2>Menu</h2> 
+        <h2>Menu</h2>
         <ul>
           {console.log(Object.values(resturantMenu))}
           {Object.values(resturantMenu).map((menuCard) => {
@@ -57,6 +60,6 @@ const ResturantMenu = () => {
       </div>
     </div>
   )
-} 
+}
 
 export default ResturantMenu

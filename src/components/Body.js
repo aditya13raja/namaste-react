@@ -1,20 +1,14 @@
 import ResturantCard from './ResturantCard'
 import { useState, useEffect } from 'react'
-import Shimmer from './Shimmer' 
+import Shimmer from './Shimmer'
 import { Link } from 'react-router-dom'
-
-function filterData(searchTxt, resturants) {
-  const filterData =  resturants.filter((resturant) => {
-    return resturant.info.name.toLowerCase().includes(searchTxt.toLowerCase()) 
-  }) 
-
-  return filterData 
-}
+import { filterData } from '../utils/helper'
+import useOnline from '../utils/useOnline'
 
 const Body = () => {
 
   const [allResturants, setAllResturants] = useState([])
-  const [searchTxt, setSearchTxt] = useState("") 
+  const [searchTxt, setSearchTxt] = useState("")
   const [filteredResturants, setFilteredResturants] = useState([])
 
   useEffect(() => {
@@ -27,16 +21,22 @@ const Body = () => {
     const json = await data.json()
     console.log(json)
 
-    setAllResturants(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants) 
-    setFilteredResturants(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants) 
+    setAllResturants(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    setFilteredResturants(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
 
   }
+
+  const isOnline = useOnline();
+
+  // if (!isOnline) {
+  //   return <h1>Offline, please check internet connection!!</h1>
+  // }
 
   // not render component early
   if(!allResturants) return null;
 
   // if no resturnat is found in search
-  if (filteredResturants.length === 0) return <h1>No resturnat found</h1>
+  if (filteredResturants.length === 0) return <Shimmer />
 
   // Adding condition to add SHIMMER UI while loading...
   return  (allResturants.length === 0) ? (
@@ -50,19 +50,19 @@ const Body = () => {
           value={searchTxt}
           className='search-input'
           onChange={(e) => {
-            setSearchTxt(e.target.value) 
+            setSearchTxt(e.target.value)
           }}
         />
 
         <button
           className='search-btn'
           onClick={() => {
-            const data = filterData(searchTxt, allResturants) 
+            const data = filterData(searchTxt, allResturants)
 
-            setFilteredResturants(data) 
+            setFilteredResturants(data)
           }}
         >Search</button>
-      </div>      
+      </div>
 
       <div className='resturant-list'>
         {
@@ -75,9 +75,9 @@ const Body = () => {
             )
           })
         }
-      </div> 
-    </>   
-  ) 
+      </div>
+    </>
+  )
 }
 
-export default Body 
+export default Body
