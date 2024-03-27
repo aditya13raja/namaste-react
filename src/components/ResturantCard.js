@@ -1,6 +1,11 @@
 import { IMG_CDN_URL } from "../constants"
 
-const ResturantCard = ({ name, cloudinaryImageId, cuisines, avgRating }) => { // can use 'props' instead then we need to use props.resturant....
+const ResturantCard = ({
+  name, 
+  cloudinaryImageId, 
+  cuisines, 
+  avgRating,
+  user }) => { // can use 'props' instead then we need to use props.resturant....
   //we are using array destructering {resturant}
   return (
     <div className='resturant-card'>
@@ -8,6 +13,7 @@ const ResturantCard = ({ name, cloudinaryImageId, cuisines, avgRating }) => { //
       <h2>{name}</h2>
       <h2>{cuisines.join(", ")}</h2>
       <h3>{avgRating} stars</h3>
+      <h2>{user.name}</h2>
     </div>    
   )
 };
